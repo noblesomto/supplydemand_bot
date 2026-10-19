@@ -4,6 +4,7 @@ Catches a hung scheduler (process up, no scans). Standalone: imports none
 of the app's modules. Alerts once per outage, then once on recovery."""
 import os
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -30,7 +31,11 @@ def main() -> None:
     prev = STATE_FILE.read_text().strip() if STATE_FILE.exists() else "OK"
     host = os.uname().nodename
     try:
-        r = requests.get(HEALTH_URL, timeout=10)
+        try:
+            r = requests.get(HEALTH_URL, timeout=10)
+        except requests.ConnectionError:
+            time.sleep(30)  # service may be (re)starting: uvicorn binds a few seconds after launch
+            r = requests.get(HEALTH_URL, timeout=10)
         r.raise_for_status()
         last = r.json().get("last_scan_at")
         if not last:  # fresh process, first cycle not finished yet
