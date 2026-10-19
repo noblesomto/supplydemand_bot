@@ -247,6 +247,27 @@ below. The calib/holdout split itself is **2022-01-04 → 2025-05-04**
 the §5 amendment — not the 2016–2021/2022–2026 split originally assumed
 below.
 
+**Amendment (2026-10-19)**: the 2026-10-12 retune was decided on an
+engine with two bugs. Targets scanned every historical pivot instead of
+the last one (§6.5). That made results depend on where the data started
+and rejected most setups on RR. Spread was also never charged. Both are
+fixed. A calib-only re-sweep on the corrected engine
+(`scripts/threshold_sweep.py`,
+`docs/backtest_reports/threshold_sweep_20261019.md`) found:
+
+- The course defaults are still too strict: `leg_atr=1.0`/`departure_atr=2.0`
+  gives 0–25 calib trades on D1_H4 and H4_H1. So `leg_atr=0.5` stays.
+- `departure_atr=0.3` was the weak setting. `departure_atr=1.0` (half the
+  course default) roughly doubled calib expectancy on all three profiles
+  and still leaves a testable sample.
+
+`baseline` now uses `departure_atr=1.0`, with `leg_atr=0.5` and
+`pivot_n=21` unchanged, uniformly across profiles. This was picked from
+a 108-cell calib sweep, and the holdout has already been viewed several
+times (`holdout_log.md`). Holdout results under this setting therefore
+cannot count as an independent edge test. Only forward / paper-traded
+data can.
+
 - Each profile splits its history: first ~70% **calib**, last ~30%
   **holdout** (D1_H4: calib 2016–2021, holdout 2022–2026-09).
 - **Variants** are named override blocks in `rules.yaml`. The **core set** is

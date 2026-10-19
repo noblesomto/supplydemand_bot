@@ -15,6 +15,11 @@
 # more significant swing pivots for target selection). This is a real
 # deviation from the course's literal defaults, applied uniformly across
 # all three profiles per spec section 7's "no per-timeframe retuning."
+#
+# Amendment (2026-10-19): departure_atr raised 0.3 -> 1.0 after a calib-only
+# re-sweep on the corrected engine (last-pivot targets, spread charged).
+# 0.3 was the weak setting on every profile; see spec section 7 and
+# docs/backtest_reports/threshold_sweep_20261019.md.
 baseline:
   profile: D1_H4
   zone:
@@ -23,7 +28,7 @@ baseline:
     base_range_atr: 1.5
     leg_atr: 0.5
     leg_out_bars: 3
-    departure_atr: 0.3
+    departure_atr: 1.0
     max_touches: 3
     break_atr: 1.0
     break_bars: 3
