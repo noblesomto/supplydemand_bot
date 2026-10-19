@@ -165,3 +165,47 @@ def test_scanner_reconnects_feed_after_fetch_error(monkeypatch):
     sc.refresh(datetime(2026, 11, 2, 10, tzinfo=timezone.utc))
     sc.refresh(datetime(2026, 11, 2, 10, 15, tzinfo=timezone.utc))
     assert len(made) == 2 and sc.fetch_failures["EUR/USD"] == 0
+
+
+def _seed(sf):
+    with sf() as s:
+        for i, (sys_, r, taken) in enumerate([("PRIME-H1-CT", 2.0, True), ("PRIME-H1-CT", -1.0, True),
+                                               ("H4-AB-2R", 1.9, False)]):
+            s.add(Signal(system=sys_, pair="EUR/USD", direction="long", zone_type="demand", grade="A",
+                         entry_timestamp=f"2026-11-0{i + 2} 10:00:00", entry=1.1, sl=1.09, tp=1.12, rr=2.0,
+                         taken=taken, skip_reason=None if taken else "3 open", status="CLOSED",
+                         exit_kind="target", exit_timestamp=f"2026-11-0{i + 2} 12:00:00", realized_r=r))
+        s.commit()
+
+
+def test_stats_per_system_and_account(tmp_path):
+    from live import stats
+    sf = make_session_factory(f"sqlite:///{tmp_path}/s.db")
+    _seed(sf)
+    with sf() as s:
+        d = stats.build(s, "PRIME-H1-CT")
+        a = stats.build(s, "ALL")
+    assert d["detail"]["raw"]["n"] == 2 and d["detail"]["raw"]["exp_r"] == 0.5
+    assert d["detail"]["balance"] == round(1000 * 1.02 * 0.99, 2) and d["detail"]["prime"]
+    h4 = next(o for o in a["overview"] if o["label"] == "H4-AB-2R")
+    assert h4["raw"]["n"] == 1 and h4["account"]["n"] == 0 and h4["balance"] == 1000.0 and h4["skipped"] == 1
+    assert len(a["overview"]) == 10 and len(a["equity_by_system"]) == 10 and len(a["recent"]) == 3
+
+
+def test_dashboard_routes_and_auth(tmp_path, monkeypatch):
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+    from api.routes import make_router
+    sf = make_session_factory(f"sqlite:///{tmp_path}/d.db")
+    _seed(sf)
+    app = FastAPI()
+    app.include_router(make_router(sf))
+    c = TestClient(app)
+    assert c.get("/api/stats?system=PRIME-H1-CT").json()["detail"]["raw"]["n"] == 2
+    assert c.get("/api/stats?system=NOPE").status_code == 404
+    assert "S/D Paper Scanner" in c.get("/dashboard").text
+    monkeypatch.setattr(settings, "DASHBOARD_USERNAME", "u")
+    monkeypatch.setattr(settings, "DASHBOARD_PASSWORD", "p")
+    assert c.get("/dashboard").status_code == 401
+    assert c.get("/api/stats", auth=("u", "p")).status_code == 200
+    assert c.get("/api/stats", auth=("u", "x")).status_code == 401

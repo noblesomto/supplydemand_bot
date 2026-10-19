@@ -19,6 +19,8 @@ class Settings:
     RULEBOOK_PATH: str = os.getenv("RULEBOOK_PATH", "rulebook/rules.yaml")
     HOST: str = os.getenv("HOST", "127.0.0.1")
     PORT: int = int(os.getenv("PORT", "8003"))
+    DASHBOARD_USERNAME: str = os.getenv("DASHBOARD_USERNAME", "")
+    DASHBOARD_PASSWORD: str = os.getenv("DASHBOARD_PASSWORD", "")
     SCAN_WORKERS: int = int(os.getenv("SCAN_WORKERS", "4"))
 
 

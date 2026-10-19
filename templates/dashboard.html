@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S/D Paper Scanner</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1b1f24;--muted:#667085;--line:#e4e7ec;--pos:#0f8a4f;--neg:#c4320a;--accent:#2f6fde;--prime:#b7791f;--sel:#eef4ff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--text:#e6e8eb;--muted:#98a2b3;--line:#2a2f3a;--pos:#3ccf8e;--neg:#ff7a59;--accent:#6ea0ff;--prime:#f2b84b;--sel:#1d2740}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+h1{font-size:20px;margin:0}
+h2{font-size:15px;margin:0 0 10px}
+.muted{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:600;font-size:12px}
+tbody tr.sys{cursor:pointer}
+tbody tr.sys:hover,tbody tr.sel{background:var(--sel)}
+.pos{color:var(--pos)}.neg{color:var(--neg)}
+.prime{color:var(--prime);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.kpi{border:1px solid var(--line);border-radius:8px;padding:10px}
+.kpi .v{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:800px){.grid2{grid-template-columns:1fr}}
+.pill{display:inline-block;padding:1px 7px;border-radius:999px;font-size:12px;border:1px solid var(--line)}
+#equity{height:300px}
+.note{font-size:12px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>S/D Paper Scanner</h1>
+    <div class="muted" id="meta">loading…</div>
+  </header>
+
+  <div class="card">
+    <h2>Systems <span class="muted" style="font-weight:400">— click a row for detail · ★ PRIME = positive every year 2022–2026 in backtest</span></h2>
+    <div class="scroll"><table id="overview"><thead><tr>
+      <th>System</th><th>Profile</th><th>Closed</th><th>Win %</th><th>Exp R</th><th>CI95</th><th>Calib R</th>
+      <th>Total R</th><th>Balance</th><th>Max DD</th><th>Open</th><th>Skipped</th>
+    </tr></thead><tbody></tbody></table></div>
+    <div class="note">Exp R / Win % / Total R: every closed signal (raw). Balance / Max DD: the system's own $1000 paper account (1% compounding risk, max 3 open, daily stop). R is net of spread.</div>
+  </div>
+
+  <div class="card">
+    <h2 id="dtitle">All systems</h2>
+    <div class="kpis" id="kpis"></div>
+  </div>
+
+  <div class="card"><h2>Paper equity (taken signals)</h2><div id="equity"></div></div>
+
+  <div class="grid2">
+    <div class="card"><h2>Open signals</h2><div class="scroll"><table id="open"><thead><tr>
+      <th>System</th><th>Pair</th><th>Dir</th><th>Entry time</th><th>Entry</th><th>SL</th><th>TP</th><th>RR</th><th>Taken</th>
+    </tr></thead><tbody></tbody></table></div></div>
+    <div class="card"><h2>By pair (closed)</h2><div class="scroll"><table id="pairs"><thead><tr>
+      <th>Pair</th><th>Trades</th><th>Win %</th><th>Exp R</th><th>Total R</th>
+    </tr></thead><tbody></tbody></table></div></div>
+  </div>
+
+  <div class="card"><h2>Recent signals</h2><div class="scroll"><table id="recent"><thead><tr>
+    <th>System</th><th>Pair</th><th>Dir</th><th>Zone</th><th>Entry time</th><th>Entry</th><th>SL</th><th>TP</th>
+    <th>Taken</th><th>Status</th><th>Exit</th><th>R</th>
+  </tr></thead><tbody></tbody></table></div></div>
+</div>
+
+<script>
+let current = "ALL";
+try { current = localStorage.getItem("sd_system") || "ALL"; } catch (e) {}
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sign = v => v == null ? "–" : `<span class="${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${v > 0 ? "+" : ""}${v.toFixed(3)}</span>`;
+const sign2 = v => v == null ? "–" : `<span class="${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${v > 0 ? "+" : ""}${v.toFixed(2)}</span>`;
+const pct = v => v == null ? "–" : v.toFixed(1) + "%";
+const ci = c => c ? `[${c[0] > 0 ? "+" : ""}${c[0].toFixed(2)}, ${c[1] > 0 ? "+" : ""}${c[1].toFixed(2)}]` : "–";
+const px = (v, pair) => v == null ? "–" : v.toFixed(pair.startsWith("XAU") ? 2 : pair.endsWith("JPY") ? 3 : 5);
+const label = (name, prime) => prime ? `<span class="prime">★ ${esc(name)}</span>` : esc(name);
+const isPrime = name => name.startsWith("PRIME-");
+const money = v => "$" + v.toLocaleString(undefined, {maximumFractionDigits: 0});
+
+function overviewRow(o) {
+  const sel = o.label === current ? " sel" : "";
+  return `<tr class="sys${sel}" data-s="${esc(o.label)}">
+    <td>${label(o.label, o.prime)}</td><td>${esc(o.profile)}</td><td>${o.raw.n}</td><td>${pct(o.raw.win_pct)}</td>
+    <td>${sign(o.raw.exp_r)}</td><td>${ci(o.raw.ci95)}</td><td>${sign(o.calib_exp)}</td><td>${sign2(o.raw.total_r)}</td>
+    <td>${money(o.balance)}</td><td>${o.max_dd_pct.toFixed(1)}%</td><td>${o.open}</td><td>${o.skipped}</td></tr>`;
+}
+
+function render(d) {
+  document.getElementById("meta").innerHTML =
+    `go-live ${esc(d.go_live_at || "–")} UTC · last scan ${esc((d.last_scan_at || "–").replace("T", " ").slice(0, 19))} UTC · paper only`;
+
+  const all = `<tr class="sys${current === "ALL" ? " sel" : ""}" data-s="ALL"><td><b>ALL systems</b></td><td colspan="11" class="muted" style="text-align:left">combined view</td></tr>`;
+  document.querySelector("#overview tbody").innerHTML = all + d.overview.map(overviewRow).join("");
+  document.querySelectorAll("#overview tr.sys").forEach(tr => tr.onclick = () => select(tr.dataset.s));
+
+  const x = d.detail;
+  document.getElementById("dtitle").innerHTML = current === "ALL" ? "All systems" :
+    `${label(x.label, x.prime)} <span class="muted" style="font-weight:400">${esc(x.profile)} · ${esc(x.variant)}</span>`;
+  const k = [
+    ["Closed trades", x.raw.n], ["Win rate", pct(x.raw.win_pct)], ["Expectancy R", sign(x.raw.exp_r)],
+    ["CI95", ci(x.raw.ci95)], ["Calib R", current === "ALL" ? "–" : sign(x.calib_exp)], ["Total R", sign2(x.raw.total_r)],
+    ["Paper balance", current === "ALL" ? "–" : money(x.balance)], ["Max DD", current === "ALL" ? "–" : x.max_dd_pct.toFixed(1) + "%"],
+    ["Open", x.open], ["Skipped", x.skipped],
+  ];
+  document.getElementById("kpis").innerHTML = k.map(([l, v]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const fg = dark ? "#e6e8eb" : "#1b1f24", grid = dark ? "#2a2f3a" : "#e4e7ec";
+  const layout = {margin: {l: 50, r: 10, t: 10, b: 40}, paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",
+    font: {color: fg}, xaxis: {gridcolor: grid}, yaxis: {gridcolor: grid, title: "USD"}, showlegend: current === "ALL",
+    legend: {orientation: "h"}};
+  let traces;
+  if (current === "ALL") {
+    traces = (d.equity_by_system || []).map(s => ({x: s.equity.map(p => p.t), y: s.equity.map(p => p.balance),
+      name: s.label, mode: "lines", line: {width: isPrime(s.label) ? 3 : 1.5}}));
+  } else {
+    traces = [{x: x.equity.map(p => p.t), y: x.equity.map(p => p.balance), mode: "lines+markers", name: x.label}];
+  }
+  if (!traces.some(t => t.x.length)) {
+    document.getElementById("equity").innerHTML = '<p class="muted">No closed paper trades yet.</p>';
+  } else {
+    document.getElementById("equity").innerHTML = "";
+    Plotly.react("equity", traces, layout, {displayModeBar: false, responsive: true});
+  }
+
+  const empty = n => `<tr><td colspan="${n}" class="muted" style="text-align:left">None yet.</td></tr>`;
+  const taken = r => r.taken ? "yes" : `<span class="pill">${esc(r.skip_reason)}</span>`;
+  document.querySelector("#open tbody").innerHTML = d.open_signals.length ? d.open_signals.map(r => `<tr>
+    <td>${label(r.system, isPrime(r.system))}</td><td>${esc(r.pair)}</td><td>${esc(r.direction)}</td><td>${esc(r.entry_timestamp)}</td>
+    <td>${px(r.entry, r.pair)}</td><td>${px(r.sl, r.pair)}</td><td>${px(r.tp, r.pair)}</td><td>${r.rr == null ? "–" : r.rr.toFixed(1)}</td><td>${taken(r)}</td></tr>`).join("") : empty(9);
+  document.querySelector("#pairs tbody").innerHTML = d.pairs.length ? d.pairs.map(p => `<tr>
+    <td>${esc(p.pair)}</td><td>${p.n}</td><td>${pct(p.win_pct)}</td><td>${sign(p.exp_r)}</td><td>${sign2(p.total_r)}</td></tr>`).join("") : empty(5);
+  document.querySelector("#recent tbody").innerHTML = d.recent.length ? d.recent.map(r => `<tr>
+    <td>${label(r.system, isPrime(r.system))}</td><td>${esc(r.pair)}</td><td>${esc(r.direction)}</td><td>${esc(r.zone_type)} ${esc(r.grade)}</td>
+    <td>${esc(r.entry_timestamp)}</td><td>${px(r.entry, r.pair)}</td><td>${px(r.sl, r.pair)}</td><td>${px(r.tp, r.pair)}</td>
+    <td>${taken(r)}</td><td>${esc(r.status)}</td><td>${esc(r.exit_kind || "")}</td><td>${sign2(r.realized_r)}</td></tr>`).join("") : empty(12);
+}
+
+async function load() {
+  try {
+    const r = await fetch(`api/stats?system=${encodeURIComponent(current)}`, {credentials: "same-origin"});
+    if (!r.ok) throw new Error(r.status);
+    render(await r.json());
+  } catch (e) {
+    document.getElementById("meta").textContent = "could not load stats (" + e.message + ")";
+  }
+}
+
+function select(s) {
+  current = s;
+  try { localStorage.setItem("sd_system", s); } catch (e) {}
+  load();
+}
+
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>

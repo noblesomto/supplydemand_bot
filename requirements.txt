@@ -16,3 +16,4 @@ uvicorn==0.34.0
 apscheduler==3.11.0
 service-identity==24.1.0
 cryptography==42.0.8
+httpx==0.28.1

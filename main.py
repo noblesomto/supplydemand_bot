@@ -7,6 +7,8 @@ from contextlib import asynccontextmanager
 from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI
 
+from api.routes import make_router
+
 from config import settings
 from live.notify import Telegram
 from live.scanner import Scanner
@@ -31,7 +33,7 @@ def _scan():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     from core.feeds.ctrader import from_env
-    sf = make_session_factory(settings.DB_URL)
+    sf = _sf
     state["sf"] = sf
     state["scanner"] = Scanner(sf, Telegram(settings.TELEGRAM_BOT_TOKEN, settings.TELEGRAM_CHAT_ID),
                                lambda: from_env().start(),
@@ -48,6 +50,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Supply/Demand paper scanner", version=__version__, lifespan=lifespan)
+_sf = make_session_factory(settings.DB_URL)
+app.include_router(make_router(_sf))
 
 
 @app.get("/health")
@@ -61,4 +65,6 @@ def health() -> dict:
 
 if __name__ == "__main__":
     import uvicorn
+    if settings.HOST not in ("127.0.0.1", "localhost") and not (settings.DASHBOARD_USERNAME and settings.DASHBOARD_PASSWORD):
+        raise SystemExit("refusing to bind a public HOST without DASHBOARD_USERNAME/DASHBOARD_PASSWORD")
     uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=False)
