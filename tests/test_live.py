@@ -196,6 +196,8 @@ def test_dashboard_routes_and_auth(tmp_path, monkeypatch):
     from fastapi import FastAPI
     from fastapi.testclient import TestClient
     from api.routes import make_router
+    monkeypatch.setattr(settings, "DASHBOARD_USERNAME", "")  # independent of the host's .env
+    monkeypatch.setattr(settings, "DASHBOARD_PASSWORD", "")
     sf = make_session_factory(f"sqlite:///{tmp_path}/d.db")
     _seed(sf)
     app = FastAPI()
