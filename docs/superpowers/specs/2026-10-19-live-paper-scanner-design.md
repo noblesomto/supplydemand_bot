@@ -32,11 +32,11 @@ same trades, so only the close variant is kept, to avoid double-posting.
 | `H4-AB-3R` | H4_H1 | `grid_close_AB_fixed3r` | +0.344 | +0.14 | 12.3% |
 | `H4-A-3R` | H4_H1 | `grid_wick_A_fixed3r` | +0.380 | +0.10 | 14.5% |
 | `H4-A-2R` | H4_H1 | `grid_wick_A_fixed2r` | +0.289 | +0.07 | 11.9% |
-| `H1-CT` | H1_M15 | `sw_counter_trend` | +0.375 | +0.15 | 31.6% |
-| `H1-AB-2R` | H1_M15 | `grid_close_AB_fixed2r` | +0.249 | +0.17 | 22.1% |
+| `PRIME-H1-CT` | H1_M15 | `sw_counter_trend` | +0.375 | +0.15 | 31.6% |
+| `PRIME-H1-AB-2R` | H1_M15 | `grid_close_AB_fixed2r` | +0.249 | +0.17 | 22.1% |
 | `H1-AB-NL` | H1_M15 | `grid_close_AB_nextlevel` | +0.267 | +0.11 | 43.8% |
 | `H1-AB-3R` | H1_M15 | `grid_close_AB_fixed3r` | +0.197 | +0.09 | 32.1% |
-| `H1-A-2R` | H1_M15 | `grid_wick_A_fixed2r` | +0.154 | +0.04 | 19.9% |
+| `PRIME-H1-A-2R` | H1_M15 | `grid_wick_A_fixed2r` | +0.154 | +0.04 | 19.9% |
 | `H1-BASE` | H1_M15 | baseline | +0.212 | +0.001 | 38.3% |
 
 The systems are defined in exactly one place:
@@ -47,6 +47,11 @@ permanent once it has signals: a changed rule set gets a new label, so one
 label's record never mixes two rule sets.
 
 All systems trade all 16 pairs in `settings.PAIRS`.
+
+`PRIME-` labels mark the systems that were positive in every calendar
+year from 2022 to 2026 in the $1000 account projection. Their Telegram
+messages start with ⭐ so they get more attention. (Amendment
+2026-10-19, at the user's request.)
 
 ## 3. Signal generation: replay
 

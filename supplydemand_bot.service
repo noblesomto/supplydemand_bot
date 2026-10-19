@@ -1,0 +1,15 @@
+[Unit]
+Description=Supply/Demand live paper scanner
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=noble
+WorkingDirectory=/home/www/python/supllydemand_bot
+ExecStart=/home/www/python/supllydemand_bot/venv/bin/python main.py
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

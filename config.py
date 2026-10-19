@@ -17,6 +17,8 @@ class Settings:
         "EUR/JPY,GBP/JPY,EUR/CAD,GBP/CAD,EUR/AUD,GBP/CHF,AUD/JPY,EUR/GBP",
     ).split(",")
     RULEBOOK_PATH: str = os.getenv("RULEBOOK_PATH", "rulebook/rules.yaml")
+    PORT: int = int(os.getenv("PORT", "8003"))
+    SCAN_WORKERS: int = int(os.getenv("SCAN_WORKERS", "4"))
 
 
 settings = Settings()

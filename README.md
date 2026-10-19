@@ -91,3 +91,27 @@ harmonic_bot's shape) and the executor are **not built yet** -- per the
 design spec, the scanner only gets built once a variant clears the
 "edge found" bar in section 7, and the executor is gated on the live
 scanner's results matching backtest.
+
+## Live paper scanner
+
+Spec: `docs/superpowers/specs/2026-10-19-live-paper-scanner-design.md`.
+Paper only: it never places orders. It runs the 10 systems in
+`live/systems.py` side by side. Each cycle replays the unchanged backtest
+engine over live cTrader M1 data, starting from a fixed anchor
+(2026-01-01). Each system has its own signals, its own $1000 paper
+account, and its own `[LABEL]` on every Telegram message.
+
+`PRIME-` systems (⭐ in Telegram) were positive in every year from 2022 to
+2026 in the $1000 projection, so watch those most closely. Only trades
+entered after go-live are recorded; go-live is set on the first cycle.
+
+    python -m core.feeds.ctrader_auth          # once: CT_CLIENT_ID/SECRET/ACCOUNT_ID in .env
+    # .env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (optional PORT=8003, SCAN_WORKERS=4)
+    python main.py                             # or install supplydemand_bot.service
+    curl localhost:8003/health
+    python scripts/live_report.py              # per-system forward results vs calib
+
+Scans run at :00:30, :15:30, :30:30 and :45:30 UTC, and take about 30s
+with 8 workers. Replay cost grows as live data accumulates beyond the
+anchor. When it gets slow, move the anchor forward; that is a deliberate
+re-anchor and should be noted in git history.
