@@ -14,3 +14,4 @@ pyarrow==25.0.1
 fastapi==0.115.6
 uvicorn==0.34.0
 apscheduler==3.11.0
+service-identity==26.1.0

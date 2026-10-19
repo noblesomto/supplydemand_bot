@@ -7,3 +7,4 @@ __pycache__/
 .claude/
 data_cache/
 chart_tmp/
+.ctrader_tokens.json
