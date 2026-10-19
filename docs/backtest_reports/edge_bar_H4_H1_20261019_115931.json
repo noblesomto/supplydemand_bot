@@ -1,0 +1,670 @@
+{
+  "grid_close_AB_fixed2r": {
+    "score": {
+      "verdict": "FAIL",
+      "criteria": {
+        "expectancy": {
+          "passed": false,
+          "detail": "expectancy_r=-0.066 ci95=[-0.2535, 0.1214]"
+        },
+        "every_year": {
+          "passed": false,
+          "detail": "2025: -685.68, 2026: -796.09"
+        },
+        "pairs": {
+          "passed": false,
+          "detail": "7/16 traded pairs profitable (44%)"
+        },
+        "max_drawdown": {
+          "passed": false,
+          "detail": "max_drawdown_pct=22.07"
+        },
+        "min_trades": {
+          "passed": true,
+          "detail": "trades=212 (need 30)"
+        }
+      },
+      "excluded_pairs": [
+        "EUR/USD",
+        "USD/CAD"
+      ]
+    },
+    "holdout": {
+      "num_trades": 212,
+      "funnel": {
+        "zones_detected": 2862,
+        "retraced": 2318,
+        "graded_a": 260,
+        "graded_b": 859,
+        "graded_c": 416,
+        "zone_tf_confirmed": 1119,
+        "confirm_tf_confirmed": 1025,
+        "passed_rr": 233,
+        "entered": 233,
+        "expired_by_reason": {
+          "confirm_window_elapsed": 617,
+          "grade_C_rejected": 416,
+          "rr_rejected": 792,
+          "zone_broken": 468,
+          "zone_retired": 125,
+          "zone_expired": 82,
+          "no_confirmation_tf_confirmation": 94
+        }
+      },
+      "start_balance": 10000.0,
+      "final_balance": 8518.24,
+      "net_profit": -1481.76,
+      "profit_factor": 0.8972,
+      "win_rate_pct": 31.13,
+      "expectancy_r": -0.066,
+      "expectancy_r_ci95": [
+        -0.2535,
+        0.1214
+      ],
+      "max_drawdown_pct": 22.07,
+      "sharpe_ratio": -0.8373,
+      "open_at_end_count": 0,
+      "by_year": {
+        "2025": {
+          "trades": 114,
+          "win_rate_pct": 31.58,
+          "net_profit": -685.68,
+          "expectancy_r": -0.0526
+        },
+        "2026": {
+          "trades": 98,
+          "win_rate_pct": 30.61,
+          "net_profit": -796.09,
+          "expectancy_r": -0.0816
+        }
+      },
+      "by_pair": {
+        "AUD/JPY": {
+          "trades": 11,
+          "win_rate_pct": 36.36,
+          "net_profit": 83.78,
+          "expectancy_r": 0.0909
+        },
+        "AUD/USD": {
+          "trades": 6,
+          "win_rate_pct": 16.67,
+          "net_profit": -297.22,
+          "expectancy_r": -0.5
+        },
+        "EUR/AUD": {
+          "trades": 16,
+          "win_rate_pct": 43.75,
+          "net_profit": 423.33,
+          "expectancy_r": 0.3125
+        },
+        "EUR/CAD": {
+          "trades": 7,
+          "win_rate_pct": 42.86,
+          "net_profit": 198.48,
+          "expectancy_r": 0.2857
+        },
+        "EUR/GBP": {
+          "trades": 14,
+          "win_rate_pct": 21.43,
+          "net_profit": -485.97,
+          "expectancy_r": -0.3571
+        },
+        "EUR/JPY": {
+          "trades": 15,
+          "win_rate_pct": 6.67,
+          "net_profit": -1163.31,
+          "expectancy_r": -0.8
+        },
+        "EUR/USD": {
+          "trades": 7,
+          "win_rate_pct": 28.57,
+          "net_profit": -82.5,
+          "expectancy_r": -0.1429
+        },
+        "GBP/CAD": {
+          "trades": 10,
+          "win_rate_pct": 30.0,
+          "net_profit": -120.43,
+          "expectancy_r": -0.1
+        },
+        "GBP/CHF": {
+          "trades": 19,
+          "win_rate_pct": 42.11,
+          "net_profit": 502.31,
+          "expectancy_r": 0.2632
+        },
+        "GBP/JPY": {
+          "trades": 13,
+          "win_rate_pct": 30.77,
+          "net_profit": -124.81,
+          "expectancy_r": -0.0769
+        },
+        "GBP/USD": {
+          "trades": 22,
+          "win_rate_pct": 36.36,
+          "net_profit": 175.0,
+          "expectancy_r": 0.0909
+        },
+        "NZD/USD": {
+          "trades": 12,
+          "win_rate_pct": 41.67,
+          "net_profit": 291.85,
+          "expectancy_r": 0.25
+        },
+        "USD/CAD": {
+          "trades": 12,
+          "win_rate_pct": 33.33,
+          "net_profit": -53.38,
+          "expectancy_r": 0.0
+        },
+        "USD/CHF": {
+          "trades": 15,
+          "win_rate_pct": 33.33,
+          "net_profit": 8.79,
+          "expectancy_r": 0.0
+        },
+        "USD/JPY": {
+          "trades": 17,
+          "win_rate_pct": 17.65,
+          "net_profit": -768.81,
+          "expectancy_r": -0.4706
+        },
+        "XAU/USD": {
+          "trades": 16,
+          "win_rate_pct": 31.25,
+          "net_profit": -68.89,
+          "expectancy_r": -0.0625
+        }
+      },
+      "by_direction": {
+        "long": {
+          "trades": 93,
+          "win_rate_pct": 40.86,
+          "net_profit": 1984.94,
+          "expectancy_r": 0.2258
+        },
+        "short": {
+          "trades": 119,
+          "win_rate_pct": 23.53,
+          "net_profit": -3466.71,
+          "expectancy_r": -0.2941
+        }
+      },
+      "by_zone_type": {
+        "demand": {
+          "trades": 93,
+          "win_rate_pct": 40.86,
+          "net_profit": 1984.94,
+          "expectancy_r": 0.2258
+        },
+        "supply": {
+          "trades": 119,
+          "win_rate_pct": 23.53,
+          "net_profit": -3466.71,
+          "expectancy_r": -0.2941
+        }
+      },
+      "by_grade": {
+        "B": {
+          "trades": 141,
+          "win_rate_pct": 30.5,
+          "net_profit": -1215.09,
+          "expectancy_r": -0.0851
+        },
+        "A": {
+          "trades": 71,
+          "win_rate_pct": 32.39,
+          "net_profit": -266.67,
+          "expectancy_r": -0.0282
+        }
+      },
+      "by_exit_kind": {
+        "target": {
+          "trades": 66,
+          "win_rate_pct": 100.0,
+          "net_profit": 12925.71,
+          "expectancy_r": 2.0
+        },
+        "sl": {
+          "trades": 146,
+          "win_rate_pct": 0.0,
+          "net_profit": -14407.48,
+          "expectancy_r": -1.0
+        }
+      }
+    },
+    "calib_by_pair": {
+      "AUD/JPY": {
+        "trades": 31,
+        "win_rate_pct": 35.48,
+        "net_profit": 366.3,
+        "expectancy_r": 0.0645
+      },
+      "AUD/USD": {
+        "trades": 25,
+        "win_rate_pct": 32.0,
+        "net_profit": 535.93,
+        "expectancy_r": -0.04
+      },
+      "EUR/AUD": {
+        "trades": 30,
+        "win_rate_pct": 46.67,
+        "net_profit": 1585.66,
+        "expectancy_r": 0.4
+      },
+      "EUR/CAD": {
+        "trades": 30,
+        "win_rate_pct": 50.0,
+        "net_profit": 2493.08,
+        "expectancy_r": 0.5
+      },
+      "EUR/GBP": {
+        "trades": 13,
+        "win_rate_pct": 38.46,
+        "net_profit": 54.73,
+        "expectancy_r": 0.1538
+      },
+      "EUR/JPY": {
+        "trades": 37,
+        "win_rate_pct": 51.35,
+        "net_profit": 3183.84,
+        "expectancy_r": 0.5405
+      },
+      "EUR/USD": {
+        "trades": 36,
+        "win_rate_pct": 36.11,
+        "net_profit": -57.96,
+        "expectancy_r": 0.0833
+      },
+      "GBP/CAD": {
+        "trades": 39,
+        "win_rate_pct": 48.72,
+        "net_profit": 3374.06,
+        "expectancy_r": 0.4615
+      },
+      "GBP/CHF": {
+        "trades": 16,
+        "win_rate_pct": 18.75,
+        "net_profit": -1007.01,
+        "expectancy_r": -0.4375
+      },
+      "GBP/JPY": {
+        "trades": 33,
+        "win_rate_pct": 42.42,
+        "net_profit": 2077.36,
+        "expectancy_r": 0.2727
+      },
+      "GBP/USD": {
+        "trades": 26,
+        "win_rate_pct": 46.15,
+        "net_profit": 1519.85,
+        "expectancy_r": 0.356
+      },
+      "NZD/USD": {
+        "trades": 33,
+        "win_rate_pct": 33.33,
+        "net_profit": 281.02,
+        "expectancy_r": 0.0
+      },
+      "USD/CAD": {
+        "trades": 24,
+        "win_rate_pct": 29.17,
+        "net_profit": -442.73,
+        "expectancy_r": -0.125
+      },
+      "USD/CHF": {
+        "trades": 28,
+        "win_rate_pct": 42.86,
+        "net_profit": 1332.06,
+        "expectancy_r": 0.2857
+      },
+      "USD/JPY": {
+        "trades": 29,
+        "win_rate_pct": 37.93,
+        "net_profit": 1042.83,
+        "expectancy_r": 0.1379
+      },
+      "XAU/USD": {
+        "trades": 36,
+        "win_rate_pct": 55.56,
+        "net_profit": 3723.44,
+        "expectancy_r": 0.6667
+      }
+    }
+  },
+  "grid_wick_A_fixed3r": {
+    "score": {
+      "verdict": "FAIL",
+      "criteria": {
+        "expectancy": {
+          "passed": false,
+          "detail": "expectancy_r=0.0575 ci95=[-0.2864, 0.4014]"
+        },
+        "every_year": {
+          "passed": false,
+          "detail": "2025: 1050.54, 2026: -614.21"
+        },
+        "pairs": {
+          "passed": false,
+          "detail": "7/16 traded pairs profitable (44%)"
+        },
+        "max_drawdown": {
+          "passed": false,
+          "detail": "max_drawdown_pct=19.12"
+        },
+        "min_trades": {
+          "passed": true,
+          "detail": "trades=101 (need 30)"
+        }
+      },
+      "excluded_pairs": [
+        "EUR/AUD",
+        "EUR/USD",
+        "USD/CAD"
+      ]
+    },
+    "holdout": {
+      "num_trades": 101,
+      "funnel": {
+        "zones_detected": 2862,
+        "retraced": 2318,
+        "graded_a": 479,
+        "graded_b": 0,
+        "graded_c": 421,
+        "zone_tf_confirmed": 479,
+        "confirm_tf_confirmed": 440,
+        "passed_rr": 110,
+        "entered": 110,
+        "expired_by_reason": {
+          "confirm_window_elapsed": 617,
+          "grade_C_rejected": 421,
+          "rr_rejected": 330,
+          "grade_B_rejected": 635,
+          "zone_broken": 468,
+          "zone_retired": 125,
+          "zone_expired": 82,
+          "no_confirmation_tf_confirmation": 39
+        }
+      },
+      "start_balance": 10000.0,
+      "final_balance": 10436.32,
+      "net_profit": 436.32,
+      "profit_factor": 1.0549,
+      "win_rate_pct": 26.73,
+      "expectancy_r": 0.0575,
+      "expectancy_r_ci95": [
+        -0.2864,
+        0.4014
+      ],
+      "max_drawdown_pct": 19.12,
+      "sharpe_ratio": 0.559,
+      "open_at_end_count": 1,
+      "by_year": {
+        "2025": {
+          "trades": 61,
+          "win_rate_pct": 29.51,
+          "net_profit": 1050.54,
+          "expectancy_r": 0.1803
+        },
+        "2026": {
+          "trades": 40,
+          "win_rate_pct": 22.5,
+          "net_profit": -614.21,
+          "expectancy_r": -0.1298
+        }
+      },
+      "by_pair": {
+        "AUD/JPY": {
+          "trades": 6,
+          "win_rate_pct": 33.33,
+          "net_profit": 203.75,
+          "expectancy_r": 0.3333
+        },
+        "AUD/USD": {
+          "trades": 3,
+          "win_rate_pct": 0.0,
+          "net_profit": -326.12,
+          "expectancy_r": -1.0
+        },
+        "EUR/AUD": {
+          "trades": 8,
+          "win_rate_pct": 25.0,
+          "net_profit": -3.24,
+          "expectancy_r": 0.0
+        },
+        "EUR/CAD": {
+          "trades": 4,
+          "win_rate_pct": 50.0,
+          "net_profit": 461.02,
+          "expectancy_r": 1.0
+        },
+        "EUR/GBP": {
+          "trades": 4,
+          "win_rate_pct": 0.0,
+          "net_profit": -439.44,
+          "expectancy_r": -1.0
+        },
+        "EUR/JPY": {
+          "trades": 8,
+          "win_rate_pct": 0.0,
+          "net_profit": -862.72,
+          "expectancy_r": -1.0
+        },
+        "EUR/USD": {
+          "trades": 4,
+          "win_rate_pct": 0.0,
+          "net_profit": -412.64,
+          "expectancy_r": -1.0
+        },
+        "GBP/CAD": {
+          "trades": 3,
+          "win_rate_pct": 0.0,
+          "net_profit": -310.11,
+          "expectancy_r": -1.0
+        },
+        "GBP/CHF": {
+          "trades": 8,
+          "win_rate_pct": 25.0,
+          "net_profit": 6.83,
+          "expectancy_r": 0.0
+        },
+        "GBP/JPY": {
+          "trades": 5,
+          "win_rate_pct": 20.0,
+          "net_profit": -113.23,
+          "expectancy_r": -0.2
+        },
+        "GBP/USD": {
+          "trades": 14,
+          "win_rate_pct": 35.71,
+          "net_profit": 639.55,
+          "expectancy_r": 0.4286
+        },
+        "NZD/USD": {
+          "trades": 6,
+          "win_rate_pct": 50.0,
+          "net_profit": 640.85,
+          "expectancy_r": 1.0
+        },
+        "USD/CAD": {
+          "trades": 6,
+          "win_rate_pct": 16.67,
+          "net_profit": -197.4,
+          "expectancy_r": -0.3333
+        },
+        "USD/CHF": {
+          "trades": 8,
+          "win_rate_pct": 50.0,
+          "net_profit": 664.98,
+          "expectancy_r": 0.8508
+        },
+        "USD/JPY": {
+          "trades": 6,
+          "win_rate_pct": 50.0,
+          "net_profit": 571.69,
+          "expectancy_r": 1.0
+        },
+        "XAU/USD": {
+          "trades": 8,
+          "win_rate_pct": 25.0,
+          "net_profit": -87.45,
+          "expectancy_r": 0.0
+        }
+      },
+      "by_direction": {
+        "short": {
+          "trades": 50,
+          "win_rate_pct": 16.0,
+          "net_profit": -1846.39,
+          "expectancy_r": -0.36
+        },
+        "long": {
+          "trades": 51,
+          "win_rate_pct": 37.25,
+          "net_profit": 2282.72,
+          "expectancy_r": 0.4668
+        }
+      },
+      "by_zone_type": {
+        "supply": {
+          "trades": 50,
+          "win_rate_pct": 16.0,
+          "net_profit": -1846.39,
+          "expectancy_r": -0.36
+        },
+        "demand": {
+          "trades": 51,
+          "win_rate_pct": 37.25,
+          "net_profit": 2282.72,
+          "expectancy_r": 0.4668
+        }
+      },
+      "by_grade": {
+        "A": {
+          "trades": 101,
+          "win_rate_pct": 26.73,
+          "net_profit": 436.32,
+          "expectancy_r": 0.0575
+        }
+      },
+      "by_exit_kind": {
+        "sl": {
+          "trades": 74,
+          "win_rate_pct": 0.0,
+          "net_profit": -7948.83,
+          "expectancy_r": -1.0
+        },
+        "target": {
+          "trades": 26,
+          "win_rate_pct": 100.0,
+          "net_profit": 8198.1,
+          "expectancy_r": 3.0
+        },
+        "open_at_end": {
+          "trades": 1,
+          "win_rate_pct": 100.0,
+          "net_profit": 187.05,
+          "expectancy_r": 1.8065
+        }
+      }
+    },
+    "calib_by_pair": {
+      "AUD/JPY": {
+        "trades": 17,
+        "win_rate_pct": 35.29,
+        "net_profit": 889.58,
+        "expectancy_r": 0.4118
+      },
+      "AUD/USD": {
+        "trades": 11,
+        "win_rate_pct": 36.36,
+        "net_profit": 670.97,
+        "expectancy_r": 0.4545
+      },
+      "EUR/AUD": {
+        "trades": 10,
+        "win_rate_pct": 20.0,
+        "net_profit": -85.65,
+        "expectancy_r": -0.2
+      },
+      "EUR/CAD": {
+        "trades": 21,
+        "win_rate_pct": 33.33,
+        "net_profit": 803.14,
+        "expectancy_r": 0.3333
+      },
+      "EUR/GBP": {
+        "trades": 9,
+        "win_rate_pct": 33.33,
+        "net_profit": 357.22,
+        "expectancy_r": 0.3333
+      },
+      "EUR/JPY": {
+        "trades": 17,
+        "win_rate_pct": 41.18,
+        "net_profit": 1520.97,
+        "expectancy_r": 0.6471
+      },
+      "EUR/USD": {
+        "trades": 15,
+        "win_rate_pct": 13.33,
+        "net_profit": -791.84,
+        "expectancy_r": -0.4667
+      },
+      "GBP/CAD": {
+        "trades": 22,
+        "win_rate_pct": 36.36,
+        "net_profit": 1250.16,
+        "expectancy_r": 0.4545
+      },
+      "GBP/CHF": {
+        "trades": 8,
+        "win_rate_pct": 12.5,
+        "net_profit": -522.18,
+        "expectancy_r": -0.5
+      },
+      "GBP/JPY": {
+        "trades": 15,
+        "win_rate_pct": 40.0,
+        "net_profit": 1263.9,
+        "expectancy_r": 0.6
+      },
+      "GBP/USD": {
+        "trades": 10,
+        "win_rate_pct": 40.0,
+        "net_profit": 689.17,
+        "expectancy_r": 0.6
+      },
+      "NZD/USD": {
+        "trades": 20,
+        "win_rate_pct": 20.0,
+        "net_profit": -284.68,
+        "expectancy_r": -0.2
+      },
+      "USD/CAD": {
+        "trades": 15,
+        "win_rate_pct": 20.0,
+        "net_profit": -611.13,
+        "expectancy_r": -0.2
+      },
+      "USD/CHF": {
+        "trades": 13,
+        "win_rate_pct": 46.15,
+        "net_profit": 1285.73,
+        "expectancy_r": 0.8462
+      },
+      "USD/JPY": {
+        "trades": 13,
+        "win_rate_pct": 38.46,
+        "net_profit": 1399.06,
+        "expectancy_r": 0.5385
+      },
+      "XAU/USD": {
+        "trades": 15,
+        "win_rate_pct": 53.33,
+        "net_profit": 2076.15,
+        "expectancy_r": 1.1333
+      }
+    }
+  }
+}

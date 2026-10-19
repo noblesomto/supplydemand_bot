@@ -85,6 +85,24 @@ supllydemand_bot/
 
 ## 5. Data
 
+**Amendment (2026-10-09, superseding the table below)**: Twelve Data's free
+tier (800 credits/day) could not realistically backfill 16 pairs x
+multiple timeframes over several years -- two days of fetching barely
+completed H4 and still left H1 gaps for 8 pairs. `/home/www/python/maker_ot`
+already has a complete, gap-free M1 bid cache for the same 16 pairs via the
+cTrader Open API (no daily credit ceiling). This project now seeds from a
+one-time copy of that cache (`data_cache/ctrader_m1/`) and resamples
+M1→M15→H1→H4→D1 locally (`scripts/build_from_ctrader_m1.py`,
+`core/resample.py`). History starts **2022-01**, not 2016 -- the
+calib/holdout split in section 7 (originally ~10 years, then revised to
+~5.5 on Twelve Data) is now **~4.8 years**; recompute the calib/holdout
+boundary from whatever each pair's cache actually covers before running
+section 7. Twelve Data + yfinance (`scripts/fetch_history.py`) remain as a
+documented fallback for pulling fresh bars beyond the cached range, via
+this project's own cTrader tokens (`core/feeds/ctrader.py` +
+`ctrader_auth.py`) going forward in preference to Twelve Data. See
+README.md "Fetching history" for the exact commands.
+
 | TF | Source | History |
 |---|---|---|
 | D1 | aggregated from H4 on a 22:00-UTC day (Sunday stub merged into Monday); yfinance daily only for history before H4 coverage | 2015→ (2015 = warm-up) |
@@ -209,6 +227,25 @@ any             → zone BROKEN / window expired / trend filter fails
   `open_at_end` (never dropped).
 
 ## 7. Calibration protocol and edge-found bar
+
+**Amendment (2026-10-12)**: with the course-derived defaults (§6.2/§6.3),
+the full D1_H4→H4_H1→H1_M15 cascade below ran to completion and every
+variant on every profile came back with at most 3 entered trades across
+all 16 pairs — zone detection itself was the bottleneck (37 zones total
+on D1_H4's calib window), not the RR/target gate. A threshold sweep
+(`docs/backtest_reports/`) found `leg_atr` (the leg-in/leg-out "big
+candle" body-size threshold), not `departure_atr`, is the dominant lever
+on zone count. `rulebook/rules.yaml`'s `baseline` now uses `leg_atr=0.5`
+(half the course's default), `departure_atr=0.3` (15% of the course's
+default), and `pivot_n=21` (sparser swing pivots for target selection) —
+a real, documented deviation from the literal course rules, adopted
+because the untuned defaults could not produce a statistically testable
+sample on this data (16 pairs, ~4.8 years total). Applied uniformly
+across all three profiles, consistent with "no per-timeframe retuning"
+below. The calib/holdout split itself is **2022-01-04 → 2025-05-04**
+(calib) and **2025-05-04 → 2026-10-08** (holdout) for all profiles, per
+the §5 amendment — not the 2016–2021/2022–2026 split originally assumed
+below.
 
 - Each profile splits its history: first ~70% **calib**, last ~30%
   **holdout** (D1_H4: calib 2016–2021, holdout 2022–2026-09).

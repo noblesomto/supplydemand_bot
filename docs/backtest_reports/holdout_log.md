@@ -1,0 +1,10 @@
+- 2026-10-12T09:09:13.819683+00:00 | profile=D1_H4 variant=grid_close_AB_ladder period=2025-05-04..2026-10-08 trades=20 expectancy_r=0.8893 net_profit=1585.72
+- 2026-10-12T09:09:28.435182+00:00 | profile=D1_H4 variant=grid_wick_A_ladder period=2025-05-04..2026-10-08 trades=19 expectancy_r=0.9569 net_profit=1632.56
+- 2026-10-12T09:10:12.761134+00:00 | profile=D1_H4 variant=grid_close_AB_ladder period=2025-05-04..2026-10-08 trades=20 expectancy_r=0.8893 net_profit=1585.72
+- 2026-10-12T09:10:50.821929+00:00 | profile=D1_H4 variant=grid_wick_A_ladder period=2025-05-04..2026-10-08 trades=19 expectancy_r=0.9569 net_profit=1632.56
+- 2026-10-19T07:16:44.097013+00:00 | profile=D1_H4 variant=grid_wick_A_ladder period=2025-05-04..2026-10-08 trades=19 expectancy_r=0.9569 net_profit=1632.56 (score_edge_bar.py)
+- 2026-10-19T07:17:32.756988+00:00 | profile=D1_H4 variant=grid_close_AB_ladder period=2025-05-04..2026-10-08 trades=20 expectancy_r=0.8893 net_profit=1585.72 (score_edge_bar.py)
+- 2026-10-19T11:58:51.448235+00:00 | profile=H4_H1 variant=grid_close_AB_fixed2r period=2025-05-04..2026-10-08 trades=212 expectancy_r=-0.066 net_profit=-1481.76 (score_edge_bar.py)
+- 2026-10-19T11:59:31.306014+00:00 | profile=H4_H1 variant=grid_wick_A_fixed3r period=2025-05-04..2026-10-08 trades=101 expectancy_r=0.0575 net_profit=436.32 (score_edge_bar.py)
+- 2026-10-19T12:01:46.913424+00:00 | profile=H1_M15 variant=grid_wick_AB_nextlevel period=2025-05-04..2026-10-08 trades=513 expectancy_r=0.0316 net_profit=311.81 (score_edge_bar.py)
+- 2026-10-19T12:05:04.881752+00:00 | profile=H1_M15 variant=baseline period=2025-05-04..2026-10-08 trades=285 expectancy_r=-0.1379 net_profit=-3541.99 (score_edge_bar.py)

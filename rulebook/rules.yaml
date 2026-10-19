@@ -1,0 +1,106 @@
+# Supply & Demand bot rulebook. Values are course-derived starting
+# points (see docs/superpowers/specs/2026-10-08-supply-demand-bot-design.md
+# sections 6-7), not yet calibrated. All thresholds are in bars / ATR
+# multiples so the same rules apply unchanged across timeframe profiles.
+#
+# Amendment (2026-10-12): the course-derived defaults (leg_atr=1.0,
+# departure_atr=2.0, pivot_n=3) produced too few zones to ever reach a
+# testable sample -- D1_H4/H4_H1/H1_M15 calib grids all ran with <= 3
+# entered trades across all 16 pairs. A threshold sweep (see
+# docs/backtest_reports/) found leg_atr, not departure_atr, is the
+# dominant lever on zone count; reaching a plausibly holdout-clearing
+# sample (~78 calib entries on D1_H4) required leg_atr=0.5 (half the
+# course's "big candle" threshold) and departure_atr=0.3 (15% of the
+# course's "fast mover" threshold) together with pivot_n=21 (sparser,
+# more significant swing pivots for target selection). This is a real
+# deviation from the course's literal defaults, applied uniformly across
+# all three profiles per spec section 7's "no per-timeframe retuning."
+baseline:
+  profile: D1_H4
+  zone:
+    max_base: 6
+    base_body_atr: 0.5
+    base_range_atr: 1.5
+    leg_atr: 0.5
+    leg_out_bars: 3
+    departure_atr: 0.3
+    max_touches: 3
+    break_atr: 1.0
+    break_bars: 3
+    zone_max_age: 250
+    atr_period: 14
+  trend:
+    pivot_n: 21
+    counter_trend_extreme: false
+  setup:
+    trap_mode: wick
+    accepted_grades: ["A"]
+    confirm_window: 3
+    h4_window: 2
+    ib_entry: close
+  risk:
+    risk_per_trade_pct: 1.0
+    min_rr: 2.0
+    sl_buffer_atr: 0.25
+    max_concurrent_positions: 3
+    max_daily_loss_pct: 3.0
+    max_consecutive_losses: 5
+    round_targets: false
+    round_step:
+      default: 0.0100
+      USD/JPY: 1.00
+      EUR/JPY: 1.00
+      GBP/JPY: 1.00
+      AUD/JPY: 1.00
+      XAU/USD: 10.0
+    default_spread: 0.00015
+    spreads:
+      EUR/USD: 0.00008
+      GBP/USD: 0.00012
+      USD/JPY: 0.010
+      USD/CHF: 0.00015
+      USD/CAD: 0.00015
+      AUD/USD: 0.00012
+      NZD/USD: 0.00018
+      XAU/USD: 0.30
+      EUR/JPY: 0.015
+      GBP/JPY: 0.020
+      EUR/CAD: 0.00020
+      GBP/CAD: 0.00025
+      EUR/AUD: 0.00020
+      GBP/CHF: 0.00025
+      AUD/JPY: 0.015
+      EUR/GBP: 0.00012
+  exit:
+    model: next_level
+  htf_filter:
+    enabled: false
+
+# Core variant set (spec section 7): the full grid on trap_mode x
+# accepted_grades x exit, then one-switch-at-a-time variants on top of
+# baseline. Selected on calib only; the chosen variant(s) run once on
+# holdout (backtest_cli.py --period holdout --i-mean-it).
+variants:
+  # -- grid: trap_mode x accepted_grades x exit --
+  grid_wick_A_fixed2r:     {setup: {trap_mode: wick,  accepted_grades: ["A"]},      exit: {model: fixed_2r}}
+  grid_wick_A_fixed3r:     {setup: {trap_mode: wick,  accepted_grades: ["A"]},      exit: {model: fixed_3r}}
+  grid_wick_A_nextlevel:   {setup: {trap_mode: wick,  accepted_grades: ["A"]},      exit: {model: next_level}}
+  grid_wick_A_ladder:      {setup: {trap_mode: wick,  accepted_grades: ["A"]},      exit: {model: ladder}}
+  grid_wick_AB_fixed2r:    {setup: {trap_mode: wick,  accepted_grades: ["A","B"]},  exit: {model: fixed_2r}}
+  grid_wick_AB_fixed3r:    {setup: {trap_mode: wick,  accepted_grades: ["A","B"]},  exit: {model: fixed_3r}}
+  grid_wick_AB_nextlevel:  {setup: {trap_mode: wick,  accepted_grades: ["A","B"]},  exit: {model: next_level}}
+  grid_wick_AB_ladder:     {setup: {trap_mode: wick,  accepted_grades: ["A","B"]},  exit: {model: ladder}}
+  grid_close_A_fixed2r:    {setup: {trap_mode: close, accepted_grades: ["A"]},      exit: {model: fixed_2r}}
+  grid_close_A_fixed3r:    {setup: {trap_mode: close, accepted_grades: ["A"]},      exit: {model: fixed_3r}}
+  grid_close_A_nextlevel:  {setup: {trap_mode: close, accepted_grades: ["A"]},      exit: {model: next_level}}
+  grid_close_A_ladder:     {setup: {trap_mode: close, accepted_grades: ["A"]},      exit: {model: ladder}}
+  grid_close_AB_fixed2r:   {setup: {trap_mode: close, accepted_grades: ["A","B"]},  exit: {model: fixed_2r}}
+  grid_close_AB_fixed3r:   {setup: {trap_mode: close, accepted_grades: ["A","B"]},  exit: {model: fixed_3r}}
+  grid_close_AB_nextlevel: {setup: {trap_mode: close, accepted_grades: ["A","B"]},  exit: {model: next_level}}
+  grid_close_AB_ladder:    {setup: {trap_mode: close, accepted_grades: ["A","B"]},  exit: {model: ladder}}
+  # -- one-switch-at-a-time on top of baseline --
+  sw_ib_break:        {setup: {ib_entry: break}}
+  sw_ladder_pa_exit:  {exit: {model: ladder_pa_exit}}
+  sw_htf_filter:      {htf_filter: {enabled: true}}
+  sw_counter_trend:   {trend: {counter_trend_extreme: true}}
+  sw_round_targets:   {risk: {round_targets: true}}

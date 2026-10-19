@@ -1,0 +1,1606 @@
+{
+  "baseline": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  },
+  "grid_close_AB_fixed2r": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 24,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10200.0,
+    "net_profit": 200.0,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.0,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_grade": {
+      "B": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    }
+  },
+  "grid_close_AB_fixed3r": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 24,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10300.0,
+    "net_profit": 300.0,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 3.0,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_grade": {
+      "B": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    }
+  },
+  "grid_close_AB_ladder": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 24,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10257.26,
+    "net_profit": 257.26,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.5726,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_grade": {
+      "B": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_exit_kind": {
+      "sl_trailed": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    }
+  },
+  "grid_close_AB_nextlevel": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 24,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "B": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  },
+  "grid_close_A_fixed2r": {
+    "num_trades": 0,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 4,
+      "confirm_tf_confirmed": 3,
+      "passed_rr": 0,
+      "entered": 0,
+      "expired_by_reason": {
+        "grade_B_rejected": 24,
+        "grade_C_rejected": 9,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2,
+        "rr_rejected": 3,
+        "no_confirmation_tf_confirmation": 1
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10000.0,
+    "net_profit": 0.0,
+    "profit_factor": null,
+    "win_rate_pct": null,
+    "expectancy_r": null,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {},
+    "by_pair": {},
+    "by_direction": {},
+    "by_zone_type": {},
+    "by_grade": {},
+    "by_exit_kind": {}
+  },
+  "grid_close_A_fixed3r": {
+    "num_trades": 0,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 4,
+      "confirm_tf_confirmed": 3,
+      "passed_rr": 0,
+      "entered": 0,
+      "expired_by_reason": {
+        "grade_B_rejected": 24,
+        "grade_C_rejected": 9,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2,
+        "rr_rejected": 3,
+        "no_confirmation_tf_confirmation": 1
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10000.0,
+    "net_profit": 0.0,
+    "profit_factor": null,
+    "win_rate_pct": null,
+    "expectancy_r": null,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {},
+    "by_pair": {},
+    "by_direction": {},
+    "by_zone_type": {},
+    "by_grade": {},
+    "by_exit_kind": {}
+  },
+  "grid_close_A_ladder": {
+    "num_trades": 0,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 4,
+      "confirm_tf_confirmed": 3,
+      "passed_rr": 0,
+      "entered": 0,
+      "expired_by_reason": {
+        "grade_B_rejected": 24,
+        "grade_C_rejected": 9,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2,
+        "rr_rejected": 3,
+        "no_confirmation_tf_confirmation": 1
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10000.0,
+    "net_profit": 0.0,
+    "profit_factor": null,
+    "win_rate_pct": null,
+    "expectancy_r": null,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {},
+    "by_pair": {},
+    "by_direction": {},
+    "by_zone_type": {},
+    "by_grade": {},
+    "by_exit_kind": {}
+  },
+  "grid_close_A_nextlevel": {
+    "num_trades": 0,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 4,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 4,
+      "confirm_tf_confirmed": 3,
+      "passed_rr": 0,
+      "entered": 0,
+      "expired_by_reason": {
+        "grade_B_rejected": 24,
+        "grade_C_rejected": 9,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2,
+        "rr_rejected": 3,
+        "no_confirmation_tf_confirmation": 1
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10000.0,
+    "net_profit": 0.0,
+    "profit_factor": null,
+    "win_rate_pct": null,
+    "expectancy_r": null,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {},
+    "by_pair": {},
+    "by_direction": {},
+    "by_zone_type": {},
+    "by_grade": {},
+    "by_exit_kind": {}
+  },
+  "grid_wick_AB_fixed2r": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 13,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10200.0,
+    "net_profit": 200.0,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.0,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    }
+  },
+  "grid_wick_AB_fixed3r": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 13,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10300.0,
+    "net_profit": 300.0,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 3.0,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    }
+  },
+  "grid_wick_AB_ladder": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 13,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10257.26,
+    "net_profit": 257.26,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.5726,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_exit_kind": {
+      "sl_trailed": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    }
+  },
+  "grid_wick_AB_nextlevel": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 13,
+      "graded_c": 9,
+      "zone_tf_confirmed": 28,
+      "confirm_tf_confirmed": 21,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "no_confirmation_tf_confirmation": 7,
+        "rr_rejected": 20,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  },
+  "grid_wick_A_fixed2r": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10200.0,
+    "net_profit": 200.0,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.0,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 200.0,
+        "expectancy_r": 2.0
+      }
+    }
+  },
+  "grid_wick_A_fixed3r": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10300.0,
+    "net_profit": 300.0,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 3.0,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 300.0,
+        "expectancy_r": 3.0
+      }
+    }
+  },
+  "grid_wick_A_ladder": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10257.26,
+    "net_profit": 257.26,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.5726,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    },
+    "by_exit_kind": {
+      "sl_trailed": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 257.26,
+        "expectancy_r": 2.5726
+      }
+    }
+  },
+  "grid_wick_A_nextlevel": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  },
+  "sw_counter_trend": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 67,
+      "graded_a": 13,
+      "graded_b": 0,
+      "graded_c": 10,
+      "zone_tf_confirmed": 13,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 10,
+        "grade_B_rejected": 21,
+        "confirm_window_elapsed": 23,
+        "rr_rejected": 9,
+        "no_confirmation_tf_confirmation": 3
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  },
+  "sw_htf_filter": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  },
+  "sw_ib_break": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  },
+  "sw_ladder_pa_exit": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10305.15,
+    "net_profit": 305.15,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 3.0515,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 305.15,
+        "expectancy_r": 3.0515
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 305.15,
+        "expectancy_r": 3.0515
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 305.15,
+        "expectancy_r": 3.0515
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 305.15,
+        "expectancy_r": 3.0515
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 305.15,
+        "expectancy_r": 3.0515
+      }
+    },
+    "by_exit_kind": {
+      "pa_exit": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 305.15,
+        "expectancy_r": 3.0515
+      }
+    }
+  },
+  "sw_round_targets": {
+    "num_trades": 1,
+    "funnel": {
+      "zones_detected": 67,
+      "retraced": 60,
+      "graded_a": 15,
+      "graded_b": 0,
+      "graded_c": 9,
+      "zone_tf_confirmed": 15,
+      "confirm_tf_confirmed": 10,
+      "passed_rr": 1,
+      "entered": 1,
+      "expired_by_reason": {
+        "grade_C_rejected": 9,
+        "grade_B_rejected": 13,
+        "confirm_window_elapsed": 17,
+        "zone_broken": 10,
+        "no_confirmation_tf_confirmation": 5,
+        "rr_rejected": 9,
+        "zone_expired": 2
+      }
+    },
+    "start_balance": 10000.0,
+    "final_balance": 10266.22,
+    "net_profit": 266.22,
+    "profit_factor": null,
+    "win_rate_pct": 100.0,
+    "expectancy_r": 2.6622,
+    "expectancy_r_ci95": null,
+    "max_drawdown_pct": 0.0,
+    "sharpe_ratio": null,
+    "open_at_end_count": 0,
+    "by_year": {
+      "2022": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_pair": {
+      "EUR/USD": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_direction": {
+      "long": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_zone_type": {
+      "demand": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_grade": {
+      "A": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    },
+    "by_exit_kind": {
+      "target": {
+        "trades": 1,
+        "win_rate_pct": 100.0,
+        "net_profit": 266.22,
+        "expectancy_r": 2.6622
+      }
+    }
+  }
+}
