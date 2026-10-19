@@ -17,6 +17,7 @@ from rulebook.loader import load_rulebook
 log = logging.getLogger(__name__)
 REPLAY_ANCHOR = datetime(2026, 1, 1, tzinfo=timezone.utc)
 ALERT_MAX_AGE = timedelta(hours=24)
+FEED_MAX_AGE = timedelta(hours=12)
 _TS = "%Y-%m-%d %H:%M:%S"
 
 
@@ -35,8 +36,10 @@ def _replay_task(args):
 
 
 class Scanner:
-    def __init__(self, session_factory, telegram, feed=None, workers: int = 4, pairs=None):
-        self.sf, self.tg, self.feed = session_factory, telegram, feed
+    def __init__(self, session_factory, telegram, feed_factory=None, workers: int = 4, pairs=None):
+        """`feed_factory()` returns a started cTrader client; None = cache only."""
+        self.sf, self.tg, self.feed_factory = session_factory, telegram, feed_factory
+        self.feed, self.feed_started = None, None
         self.pairs = list(pairs or settings.PAIRS)
         self.workers = workers
         self.m1: dict[str, pd.DataFrame] = {}
@@ -44,7 +47,27 @@ class Scanner:
         self.last_scan_at: datetime | None = None
 
     # ---- data
+    def _ensure_feed(self, now: datetime) -> None:
+        """(Re)connect every FEED_MAX_AGE or after an error -- reconnecting
+        goes through ctrader_auth.access_token(), which refreshes the token."""
+        if self.feed is not None and self.feed_started is not None and now - self.feed_started < FEED_MAX_AGE:
+            return
+        if self.feed is not None:
+            try:
+                self.feed.stop()
+            except Exception:  # noqa: BLE001
+                pass
+        self.feed = self.feed_factory()
+        self.feed_started = now
+
     def refresh(self, now: datetime) -> None:
+        if self.feed_factory is not None:
+            try:
+                self._ensure_feed(now)
+            except Exception as e:  # noqa: BLE001
+                log.error("cTrader connect failed: %s", e)
+                self.feed = None
+        failed = False
         for pair in self.pairs:
             if pair not in self.m1:
                 self.m1[pair] = data.load_m1(pair, REPLAY_ANCHOR)
@@ -57,6 +80,7 @@ class Scanner:
                 self.fetch_failures[pair] = 0
             except Exception as e:  # noqa: BLE001
                 self.fetch_failures[pair] += 1
+                failed = True
                 log.warning("fetch %s failed (%d in a row): %s", pair, self.fetch_failures[pair], e)
                 if self.fetch_failures[pair] == 3:
                     self.tg.send(f"[scanner] {pair}: M1 fetch failed 3 cycles in a row")
@@ -65,6 +89,8 @@ class Scanner:
                 data.append_m1(pair, new)
                 merged = pd.concat([df, new])
                 self.m1[pair] = merged[~merged.index.duplicated(keep="last")].sort_index()
+        if failed and self.feed is not None:
+            self.feed_started = now - FEED_MAX_AGE  # force a reconnect next cycle
 
     # ---- cycle
     def cycle(self, now: datetime | None = None) -> None:

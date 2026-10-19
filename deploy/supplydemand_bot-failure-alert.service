@@ -1,0 +1,8 @@
+[Unit]
+Description=Telegram alert when supplydemand_bot.service fails
+
+[Service]
+Type=oneshot
+User=noble
+Group=noble
+ExecStart=/home/noble/supplydemand_bot/scripts/notify_failure.sh

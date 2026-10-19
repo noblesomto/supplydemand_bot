@@ -1,0 +1,19 @@
+[Unit]
+Description=Supply/Demand live paper scanner
+After=network-online.target
+Wants=network-online.target
+OnFailure=supplydemand_bot-failure-alert.service
+
+[Service]
+Type=simple
+User=noble
+Group=noble
+WorkingDirectory=/home/noble/supplydemand_bot
+ExecStart=/home/noble/supplydemand_bot/venv/bin/python main.py
+Restart=on-failure
+RestartSec=30
+StandardOutput=append:/home/noble/supplydemand_bot/bot.log
+StandardError=append:/home/noble/supplydemand_bot/bot.log
+
+[Install]
+WantedBy=multi-user.target

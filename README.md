@@ -107,7 +107,7 @@ entered after go-live are recorded; go-live is set on the first cycle.
 
     python -m core.feeds.ctrader_auth          # once: CT_CLIENT_ID/SECRET/ACCOUNT_ID in .env
     # .env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (optional PORT=8003, SCAN_WORKERS=4)
-    python main.py                             # or install supplydemand_bot.service
+    python main.py                             # or the systemd units in deploy/ (see deploy/README)
     curl localhost:8003/health
     python scripts/live_report.py              # per-system forward results vs calib
 

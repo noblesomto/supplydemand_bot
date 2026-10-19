@@ -100,7 +100,7 @@ def test_scanner_isolates_failing_system(tmp_path, monkeypatch):
     monkeypatch.setattr(data, "load_m1", lambda pair, since: pd.DataFrame())
     sf = make_session_factory(f"sqlite:///{tmp_path}/t.db")
     tg = _TG()
-    sc = Scanner(sf, tg, feed=None, workers=0, pairs=["EUR/USD", "GBP/USD"])
+    sc = Scanner(sf, tg, feed_factory=None, workers=0, pairs=["EUR/USD", "GBP/USD"])
     sc.cycle(now=datetime(2026, 11, 1, tzinfo=timezone.utc))
     sc.cycle(now=datetime(2026, 11, 1, 0, 15, tzinfo=timezone.utc))  # second run adds nothing
     with sf() as s:
@@ -139,3 +139,29 @@ def test_exit_tp_matches_exit_model():
     assert replay.exit_tp(lv, "next_level") == (1.1470, 4.7)
     short = TradeLevels(150.0, 151.0, 140.0, 10.0, "short")
     assert replay.exit_tp(short, "fixed_2r")[0] == pytest.approx(148.0)
+
+
+def test_scanner_reconnects_feed_after_fetch_error(monkeypatch):
+    made = []
+
+    class Feed:
+        def __init__(self, fail):
+            self.fail = fail
+
+        def trendbars_m1(self, *a):
+            if self.fail:
+                raise RuntimeError("token expired")
+            return pd.DataFrame()
+
+        def stop(self):
+            pass
+
+    def factory():
+        made.append(Feed(fail=not made))  # first client fails, the next works
+        return made[-1]
+
+    monkeypatch.setattr(data, "load_m1", lambda pair, since: pd.DataFrame())
+    sc = Scanner(None, _TG(), feed_factory=factory, workers=0, pairs=["EUR/USD"])
+    sc.refresh(datetime(2026, 11, 2, 10, tzinfo=timezone.utc))
+    sc.refresh(datetime(2026, 11, 2, 10, 15, tzinfo=timezone.utc))
+    assert len(made) == 2 and sc.fetch_failures["EUR/USD"] == 0

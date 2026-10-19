@@ -32,9 +32,9 @@ def _scan():
 async def lifespan(app: FastAPI):
     from core.feeds.ctrader import from_env
     sf = make_session_factory(settings.DB_URL)
-    feed = from_env().start()
     state["sf"] = sf
-    state["scanner"] = Scanner(sf, Telegram(settings.TELEGRAM_BOT_TOKEN, settings.TELEGRAM_CHAT_ID), feed,
+    state["scanner"] = Scanner(sf, Telegram(settings.TELEGRAM_BOT_TOKEN, settings.TELEGRAM_CHAT_ID),
+                               lambda: from_env().start(),
                                workers=settings.SCAN_WORKERS)
     sched = BackgroundScheduler(timezone="UTC")
     sched.add_job(_scan, "cron", minute="0,15,30,45", second=30, max_instances=1, coalesce=True)
@@ -43,7 +43,8 @@ async def lifespan(app: FastAPI):
     log.info("supplydemand_bot %s live (paper): %s", __version__, ", ".join(s.label for s in LIVE_SYSTEMS))
     yield
     sched.shutdown()
-    feed.stop()
+    if state["scanner"].feed is not None:
+        state["scanner"].feed.stop()
 
 
 app = FastAPI(title="Supply/Demand paper scanner", version=__version__, lifespan=lifespan)
@@ -60,4 +61,4 @@ def health() -> dict:
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=settings.PORT, reload=False)
+    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=False)

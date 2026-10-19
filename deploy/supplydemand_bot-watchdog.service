@@ -1,0 +1,9 @@
+[Unit]
+Description=S/D paper scanner health watchdog (one-shot check)
+
+[Service]
+Type=oneshot
+User=noble
+Group=noble
+WorkingDirectory=/home/noble/supplydemand_bot
+ExecStart=/home/noble/supplydemand_bot/venv/bin/python scripts/watchdog.py
