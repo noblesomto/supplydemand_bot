@@ -8,3 +8,4 @@
 - 2026-10-19T11:59:31.306014+00:00 | profile=H4_H1 variant=grid_wick_A_fixed3r period=2025-05-04..2026-10-08 trades=101 expectancy_r=0.0575 net_profit=436.32 (score_edge_bar.py)
 - 2026-10-19T12:01:46.913424+00:00 | profile=H1_M15 variant=grid_wick_AB_nextlevel period=2025-05-04..2026-10-08 trades=513 expectancy_r=0.0316 net_profit=311.81 (score_edge_bar.py)
 - 2026-10-19T12:05:04.881752+00:00 | profile=H1_M15 variant=baseline period=2025-05-04..2026-10-08 trades=285 expectancy_r=-0.1379 net_profit=-3541.99 (score_edge_bar.py)
+- 2026-10-19T17:31:44.135551+00:00 | educational $1000 projection, 10 live systems, 2022-01-04..2026-10-08 continuous (includes holdout) (project1000.py)
