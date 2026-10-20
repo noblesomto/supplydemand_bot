@@ -37,6 +37,12 @@ class Zone:
     touches: int = 0
     outside: bool = True  # True once price has left the zone at least once (arms touch-counting)
     consecutive_break_bars: int = 0
+    departed_index: int | None = None  # bar whose close confirmed the fast departure
+
+    @property
+    def known_index(self) -> int:
+        """First bar at whose close the zone is fully known (live-safe)."""
+        return self.departed_index if self.departed_index is not None else self.leg_out_index
 
     def contains(self, low: float, high: float) -> bool:
         lo, hi = (self.distal, self.proximal) if self.zone_type == ZoneType.DEMAND else (self.proximal, self.distal)
@@ -137,16 +143,16 @@ def _build_zone(
     atr = atrs[leg_out_idx]
     if atr is None or atr == 0:
         return None
-    departed = False
+    departed = None
     for j in range(leg_out_idx, window_end + 1):
         close = candles[j].close
         if zone_type == ZoneType.DEMAND and close >= base_high + rules.departure_atr * atr:
-            departed = True
+            departed = j
             break
         if zone_type == ZoneType.SUPPLY and close <= base_low - rules.departure_atr * atr:
-            departed = True
+            departed = j
             break
-    if not departed:
+    if departed is None:
         return None
 
     proximal = base_high if zone_type == ZoneType.DEMAND else base_low
@@ -166,6 +172,7 @@ def _build_zone(
         distal=distal,
         close_line=close_line,
         created_at=candles[leg_out_idx].timestamp,
+        departed_index=departed,
     )
 
 

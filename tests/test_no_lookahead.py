@@ -92,10 +92,12 @@ def test_trades_before_truncation_point_are_identical_with_or_without_future_bar
     rulebook = _rulebook()
 
     day15_index = 15
+    # The day-15 pin bar confirms only at day 15's close, so the entry
+    # pattern lives in day 16's H4 bars (entry search starts at the close).
     full_h4 = (
-        [h for d in candles[:day15_index] for h in _h4_from_d1(d)]
-        + _h4_for_day15(candles[day15_index])
-        + [h for d in candles[day15_index + 1:] for h in _h4_from_d1(d)]
+        [h for d in candles[:day15_index + 1] for h in _h4_from_d1(d)]
+        + _h4_for_day15(candles[day15_index + 1])
+        + [h for d in candles[day15_index + 2:] for h in _h4_from_d1(d)]
     )
     full_trades, _ = run_backtest(
         pair="EUR/USD", zone_tf_candles=candles, confirm_tf_candles=full_h4,
@@ -112,8 +114,8 @@ def test_trades_before_truncation_point_are_identical_with_or_without_future_bar
     assert cutoff < len(candles), "fixture must have real future bars beyond the trade to be a meaningful check"
     truncated = candles[:cutoff]
     truncated_h4 = (
-        [h for d in truncated[:day15_index] for h in _h4_from_d1(d)]
-        + _h4_for_day15(truncated[day15_index])
+        [h for d in truncated[:day15_index + 1] for h in _h4_from_d1(d)]
+        + _h4_for_day15(truncated[day15_index + 1])
     )
 
     truncated_trades, _ = run_backtest(

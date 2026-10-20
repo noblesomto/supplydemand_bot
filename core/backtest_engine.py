@@ -3,15 +3,10 @@ trade simulation across a pair's zone-TF and confirmation-TF candles.
 No look-ahead: at zone-TF bar i, only candles[:i+1] (zone TF) and the
 confirmation-TF bars that close within that zone-TF bar are visible.
 
-Known minor look-ahead: detect_zones() confirms a zone's "fast mover"
-departure using up to leg_out_bars candles AFTER the leg-out bar, and
-this engine marks the zone watchable starting at leg_out_index itself
-(not leg_out_index + however many bars the departure actually took to
-confirm). A retrace into the zone during that short confirmation window
-is vanishingly rare in practice (the zone is defined by departure
-already being fast), but is a real discrepancy from strict live
-sequencing -- flagged here rather than fixed, since it would require
-re-deriving zones incrementally per bar instead of once per series.
+A zone becomes watchable only after the bar whose close confirmed its
+fast departure (Zone.known_index), and the confirmation-TF entry search
+starts at the close of the zone-TF bar that confirmed the setup. Both
+were look-ahead leaks before v0.5.0.
 """
 
 from bisect import bisect_left
@@ -68,6 +63,18 @@ def _confirm_tf_slice_for_zone_bar(
     return confirm_candles[lo:hi]
 
 
+def _bar_close_fn(candles: list[Candle]):
+    """ts -> close ts of the zone-TF bar starting at ts (bar length = the
+    smallest gap between consecutive bars)."""
+    from datetime import datetime, timedelta
+    fmt = "%Y-%m-%d %H:%M:%S"
+    if len(candles) < 2:
+        return lambda ts: "9999-12-31 00:00:00"
+    step = min(datetime.strptime(b.timestamp, fmt) - datetime.strptime(a.timestamp, fmt)
+               for a, b in zip(candles[:200], candles[1:201]))
+    return lambda ts: (datetime.strptime(ts, fmt) + step).strftime(fmt)
+
+
 def run_backtest(
     *,
     pair: str,
@@ -93,6 +100,7 @@ def run_backtest(
     pivot_n = rulebook.trend.pivot_n
     all_pivots = find_pivots(zone_tf_candles, pivot_n)
     pivot_cursor = 0
+    zone_bar_close_ts = _bar_close_fn(zone_tf_candles)
 
     trades: list[BacktestTrade] = []
     funnel = {
@@ -106,9 +114,9 @@ def run_backtest(
     round_step = round_step_for(pair, rulebook.risk) if rulebook.risk.round_targets else None
 
     for i, candle in enumerate(zone_tf_candles):
-        # Activate newly-started zones (by leg_out_index) as watched setups.
+        # Watch a zone from the bar after its departure is confirmed (no look-ahead).
         for z in zones:
-            if z.leg_out_index == i:
+            if z.known_index + 1 == i:
                 active_setups.append(Setup(zone=z, direction=setup_direction(z)))
 
         while pivot_cursor < len(all_pivots) and all_pivots[pivot_cursor].index <= i - pivot_n:
@@ -116,7 +124,7 @@ def run_backtest(
         visible_pivots = all_pivots[:pivot_cursor]
         trend = classify_trend(visible_pivots)
         active_zones_now = [
-            s.zone for s in active_setups if s.zone.status == ZoneStatus.ACTIVE and s.zone.leg_out_index <= i
+            s.zone for s in active_setups if s.zone.status == ZoneStatus.ACTIVE and s.zone.known_index <= i
         ]
 
         still_active = []
@@ -164,24 +172,11 @@ def run_backtest(
                         )
 
             if setup.state == SetupState.ZONE_CONFIRMED and setup.confirmed_at_index == i:
-                zone_bar_end = zone_tf_candles[i + 1].timestamp if i + 1 < len(zone_tf_candles) else None
-                confirm_window = (
-                    _confirm_tf_slice_for_zone_bar(confirm_tf_candles, candle.timestamp, zone_bar_end, confirm_ts)
-                    if zone_bar_end else []
-                )
-                # Extend the window to cover h4_window zone-bars' worth of confirm-TF candles.
-                extra_bars = []
-                j = i + 1
-                bars_needed = rulebook.setup.h4_window * confirm_bars_per_zone_bar - len(confirm_window)
-                while bars_needed > 0 and j < len(zone_tf_candles):
-                    next_end = zone_tf_candles[j + 1].timestamp if j + 1 < len(zone_tf_candles) else None
-                    if next_end is None:
-                        break
-                    extra = _confirm_tf_slice_for_zone_bar(confirm_tf_candles, zone_tf_candles[j].timestamp, next_end, confirm_ts)
-                    extra_bars.extend(extra)
-                    bars_needed -= len(extra)
-                    j += 1
-                confirm_window = confirm_window + extra_bars
+                # The zone-TF confirmation is only known once bar i has
+                # closed, so the entry search starts at the first
+                # confirm-TF bar that opens at/after bar i's close.
+                lo = bisect_left(confirm_ts, zone_bar_close_ts(candle.timestamp))
+                confirm_window = confirm_tf_candles[lo: lo + rulebook.setup.h4_window * confirm_bars_per_zone_bar]
 
                 setup = check_entry_confirmation(setup, confirm_window, rulebook.setup)
                 if setup.state == SetupState.ENTRY:
@@ -249,7 +244,9 @@ def _materialize_trade(
             mtm_r = (last.close - entry) / abs(entry - sl) if direction == "long" else (entry - last.close) / abs(entry - sl)
             outcome = TradeOutcome(True, mtm_r, "open_at_end", last.timestamp, open_at_end=True)
         else:
-            return None
+            # Entry bar is the last closed bar: the trade exists now (live
+            # must see it at once), it just has no bars to evaluate yet.
+            outcome = TradeOutcome(True, 0.0, "open_at_end", entry_candle.timestamp, open_at_end=True)
 
     outcome = net_of_spread(outcome, entry, sl, spread)
 

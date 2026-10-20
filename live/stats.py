@@ -58,7 +58,8 @@ def system_summary(label: str, rows: list) -> dict:
 
 
 def build(session, system: str = "ALL", recent: int = 100) -> dict:
-    all_rows = session.query(Signal).all()
+    labels = {s.label for s in LIVE_SYSTEMS}
+    all_rows = [r for r in session.query(Signal).all() if r.system in labels]   # retired "v040:" rows excluded
     by = defaultdict(list)
     for r in all_rows:
         by[r.system].append(r)

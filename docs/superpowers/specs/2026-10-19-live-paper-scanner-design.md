@@ -53,6 +53,13 @@ year from 2022 to 2026 in the $1000 account projection. Their Telegram
 messages start with ⭐ so they get more attention. (Amendment
 2026-10-19, at the user's request.)
 
+**Amendment 2026-10-20 (v0.5.0):** the engine had look-ahead leaks
+(`docs/backtest_reports/lookahead_fix_20261020.md`). After the fix, no
+system above meets the selection rule; all are negative on calib. They
+keep running as a forward record only. Signals recorded under v0.4.0 were
+relabelled `v040:<label>` (kept, not deleted) and `go_live_at` was reset
+at the v0.5.0 deploy. The demo executor is paused (`executor/KILL`).
+
 ## 3. Signal generation: replay
 
 The scanner does **not** re-implement the strategy. Each cycle, for each
