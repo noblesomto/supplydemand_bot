@@ -115,3 +115,34 @@ Scans run at :00:30, :15:30, :30:30 and :45:30 UTC, and take about 30s
 with 8 workers. Replay cost grows as live data accumulates beyond the
 anchor. When it gets slow, move the anchor forward; that is a deliberate
 re-anchor and should be noted in git history.
+
+## Demo-account executor
+
+`python -m executor` (unit `deploy/supplydemand_bot-executor.service`) mirrors
+the paper signals onto a real cTrader **demo** account. The design is copied
+from harmonic_bot's executor.
+
+- **Reads:** the scanner DB, read-only.
+- **State:** its own, in `executor/executor.db`.
+- **What it trades:** only signals the paper account took (`taken`),
+  within `EXEC_MAX_SIGNAL_AGE_MIN` (20) minutes.
+- **Orders:** a market order at `EXEC_RISK_PCT` (0.25%) of equity, with
+  broker-side SL and TP at the signal's levels (TP = the system's 2R, 3R or
+  next-level exit).
+- **Skips:** if price is past the SL or TP, if under 70% of the planned RR
+  is left, or if the spread is more than 25% of the SL distance (this one
+  is retried while the signal is fresh).
+- **Account caps:** 8% total open risk, and a 3% daily loss stop that
+  rolls at 22:00 UTC.
+- **Kill switch:** `touch executor/KILL`.
+- **Labels:** positions are labelled `sdbot`, with the comment
+  `sdbot:<SYSTEM>:<signal id>`. Only those are ever touched.
+- **Live accounts:** refused unless `EXEC_MODE=live` and
+  `EXEC_ALLOW_LIVE=true`.
+
+Setup:
+
+    python -m core.feeds.ctrader_auth --scope trading --token-file .ctrader_tokens_trading.json
+    # .env: EXEC_MODE=demo (or dry_run), EXEC_CT_ACCOUNT_ID=<demo ctid>
+    python -m executor --check-config
+    python -m executor

@@ -1,0 +1,18 @@
+[Unit]
+Description=S/D executor (cTrader DEMO account trade execution)
+After=network-online.target supplydemand_bot.service
+Wants=network-online.target
+OnFailure=supplydemand_bot-executor-failure-alert.service
+
+[Service]
+Type=simple
+User=noble
+Group=noble
+WorkingDirectory=/home/noble/supplydemand_bot
+ExecStart=/home/noble/supplydemand_bot/venv/bin/python -m executor
+Restart=on-failure
+RestartSec=30
+# Open positions keep their broker-side SL/TP while the process is down.
+
+[Install]
+WantedBy=multi-user.target

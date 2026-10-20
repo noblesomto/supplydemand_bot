@@ -124,7 +124,9 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="core.feeds.ctrader_auth")
     ap.add_argument("--code", help="authorization code or full redirect URL")
     ap.add_argument("--scope", default="accounts", choices=["accounts", "trading"])
+    ap.add_argument("--token-file", default=str(TOKEN_FILE), help="where to save (executor: .ctrader_tokens_trading.json)")
     a = ap.parse_args(argv)
+    token_file = Path(a.token_file)
     e = env()
     cid, secret, redirect = e.get("CT_CLIENT_ID"), e.get("CT_CLIENT_SECRET"), e.get("CT_REDIRECT_URI")
     if not (cid and secret and redirect):
@@ -146,8 +148,8 @@ def main(argv=None) -> int:
     except TokenError as err:
         print(f"FAILED: {err}", file=sys.stderr)
         return 1
-    _save(tok)
-    print(f"OK: tokens saved to {TOKEN_FILE.name}")
+    _save(tok, token_file)
+    print(f"OK: tokens saved to {token_file.name}")
     return 0
 
 
