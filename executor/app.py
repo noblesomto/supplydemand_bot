@@ -15,8 +15,30 @@ HEARTBEAT = Path(__file__).resolve().parent / ".heartbeat"
 RETRYABLE = frozenset({"spread_too_wide", "no_quote", "market_closed"})
 
 
+LINE = "━━━━━━━━━━━━━━━━━━━━"
+
+
 def _tag(system: str) -> str:
     return f"⭐ DEMO [{system}]" if system.startswith("PRIME-") else f"DEMO [{system}]"
+
+
+def _px(v, pair: str) -> str:
+    if v is None:
+        return "-"
+    digits = 2 if pair.startswith("XAU") else 3 if pair.endswith("JPY") else 5
+    return f"{v:.{digits}f}"
+
+
+def _open_msg(head: str, sig, lots, price, risk_line: str, extra: str = "") -> str:
+    action = "BUY" if sig.direction.lower() == "long" else "SELL"
+    return (f"{head} {_tag(sig.system)} {action} — {sig.pair}\n"
+            f"{LINE}\n"
+            f"📦 Size: {lots} lots · signal #{sig.id}\n"
+            f"📍 Entry: {_px(price, sig.pair)}{extra}\n"
+            f"🛑 Stop Loss: {_px(sig.sl, sig.pair)}\n"
+            f"🎯 Target: {_px(sig.tp, sig.pair)}\n"
+            f"💰 Risk: {risk_line}\n"
+            f"{LINE}")
 
 
 class Executor:
@@ -90,12 +112,10 @@ class Executor:
                 self.notify(f"⏸ DEMO new trades blocked (daily loss limit); #{sig.id} {sig.pair} [{sig.system}] skipped")
             return
 
-        label = (f"{_tag(sig.system)} {sig.pair} {sig.direction.upper()} #{sig.id} {lots} lots @~{est} "
-                 f"SL {sig.sl} TP {sig.tp} risk {s.risk_pct}%")
         self.state.record(sig.id, sig.system, sig.pair, "accepted")   # claimed: never processed twice
         if s.mode == "dry_run":
             self.state.record(sig.id, sig.system, sig.pair, "placed", "dry_run")
-            return self.notify(f"DRY would open: {label}")
+            return self.notify(_open_msg("🧪 DRY would open", sig, lots, est, f"{s.risk_pct}% (${money_at_risk:.2f})", " (est.)"))
         try:
             fill = self.b.place_order(sig.pair, sig.direction, lots, sig.sl, sig.tp, system=sig.system, signal_id=sig.id)
         except AmbiguousResult as e:
@@ -114,7 +134,8 @@ class Executor:
                              fill_price=fill.price, sl=sig.sl, tp=sig.tp, risk_pct=real_risk / acct.equity * 100,
                              risk_amount=real_risk, commission=fill.commission)
         self.state.record(sig.id, sig.system, sig.pair, "placed")
-        self.notify(f"🟢 OPENED {label} | fill {fill.price} (vs signal {sig.entry}) risk ${real_risk:.2f}")
+        self.notify(_open_msg("🟢 OPENED", sig, fill.lots, fill.price, f"${real_risk:.2f} ({real_risk / acct.equity * 100:.2f}%)",
+                              f" (signal {_px(sig.entry, sig.pair)})"))
 
     # ------------------------------------------------------------ closes
     def check_closed(self) -> None:
@@ -130,8 +151,13 @@ class Executor:
                 continue   # gone but no closing deal visible yet: next pass
             r = net / t["risk_amount"] if t["risk_amount"] else 0.0
             self.state.close_trade(t["signal_id"], net, r)
-            icon = "✅" if r > 0.05 else ("➖" if r > -0.05 else "❌")
-            self.notify(f"{icon} CLOSED {_tag(t['system'])} {t['pair']} #{t['signal_id']}: {r:+.2f}R (${net:+.2f})")
+            icon, word = ("✅", "WIN") if r > 0.05 else (("➖", "BREAKEVEN") if r > -0.05 else ("❌", "LOSS"))
+            self.notify(f"{icon} CLOSED {_tag(t['system'])} {word} — {t['pair']}\n"
+                        f"{LINE}\n"
+                        f"↕️ {t['direction'].upper()} · {t['lots']} lots · signal #{t['signal_id']}\n"
+                        f"📍 Entry: {_px(t['fill_price'], t['pair'])}\n"
+                        f"📊 Result: {r:+.2f}R (${net:+.2f})\n"
+                        f"{LINE}")
 
     # ---------------------------------------------------------- reconcile
     def reconcile(self) -> None:

@@ -82,7 +82,7 @@ def test_places_sized_order_with_signal_sl_tp(tmp_path):
     pair, d, lots, sl, tp, system, sid = b.placed[0]
     # 0.25% of 10000 = $25 over a 0.0051 stop on 100k units -> 0.04 lots (rounded down)
     assert (pair, d, sl, tp, system, sid, lots) == ("EUR/USD", "long", 1.0950, 1.1100, "H4-AB-2R", 1, 0.04)
-    assert "OPENED DEMO [H4-AB-2R]" in msgs[-1]
+    assert "OPENED DEMO [H4-AB-2R]" in msgs[-1] and "━" in msgs[-1]
     ex.tick()
     assert len(b.placed) == 1  # never twice
 
@@ -142,7 +142,7 @@ def test_close_tracking_reports_r(tmp_path):
     del b.open_positions[t["position_id"]]
     b.results[t["position_id"]] = (2 * t["risk_amount"], 1)
     ex.tick()
-    assert not ex.state.open_trades() and msgs[-1].startswith("✅ CLOSED DEMO [H4-AB-2R] EUR/USD #1: +2.00R")
+    assert not ex.state.open_trades() and msgs[-1].startswith("✅ CLOSED DEMO [H4-AB-2R] WIN — EUR/USD") and "+2.00R" in msgs[-1]
 
 
 def test_reconcile_adopts_own_position(tmp_path):
@@ -158,7 +158,7 @@ def test_dry_run_never_places(tmp_path):
     b = FakeBroker()
     ex, msgs = _ex(tmp_path, _db(tmp_path, {}), b, EXEC_MODE="dry_run")
     ex.tick()
-    assert not b.placed and ex.state.outcome(1) == ("placed", "dry_run") and msgs[-1].startswith("DRY would open")
+    assert not b.placed and ex.state.outcome(1) == ("placed", "dry_run") and msgs[-1].startswith("🧪 DRY would open")
 
 
 def test_kill_switch(tmp_path):

@@ -75,10 +75,10 @@ def test_notify_labels():
     s = Signal(system="PRIME-H1-CT", pair="EUR/USD", direction="long", zone_type="demand", grade="A",
                entry_timestamp="2026-11-02 10:00:00", entry=1.1, sl=1.09, tp=1.12, rr=2.0, taken=False,
                skip_reason="3 open", status="CLOSED", exit_kind="target", realized_r=1.94)
-    assert notify.format_new(s).startswith("⭐ [PRIME-H1-CT] EUR/USD LONG") and "SKIPPED (3 open)" in notify.format_new(s)
+    assert notify.format_new(s).startswith("🟢 ⭐ [PRIME-H1-CT] BUY — EUR/USD") and "SKIPPED (3 open)" in notify.format_new(s)
     assert "+1.94R" in notify.format_close(s)
     s.system = "H4-AB-2R"
-    assert notify.format_new(s).startswith("[H4-AB-2R] ")
+    assert notify.format_new(s).splitlines()[0].split(" ", 1)[1].startswith("[H4-AB-2R] ")
 
 
 class _TG:
@@ -107,7 +107,7 @@ def test_scanner_isolates_failing_system(tmp_path, monkeypatch):
         rows = s.query(Signal).all()
         assert get_meta(s, "go_live_at") == "2026-11-01 00:00:00"
     assert sorted(r.system for r in rows) == sorted(x.label for x in LIVE_SYSTEMS if x.label != "PRIME-H1-CT")
-    assert len(tg.sent) == 9 and all(m.startswith(("[", "⭐ [")) for m in tg.sent)
+    assert len(tg.sent) == 9 and all(m.split(" ", 1)[1].startswith(("[", "⭐ [")) for m in tg.sent)
 
 
 def test_live_replay_matches_backtest():
